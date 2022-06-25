@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -7,12 +8,6 @@ const CreateExercise = () => {
   const [description, setDescription] = useState('');
   const [duration, setDuration] = useState(0);
   const [date, setDate] = useState(new Date());
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    setUsers(['test user', 'test user 2', 'test user 3']);
-    setUsername('test user');
-  }, []);
 
   const onChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -40,7 +35,14 @@ const CreateExercise = () => {
       date: date,
     };
 
-    console.log(exercise);
+    axios
+      .post('http://localhost:5000/exercises/add', exercise)
+      .then((res) => console.log(res.data));
+
+    setUsername('');
+    setDescription('');
+    setDuration(0);
+    setDate(new Date());
   };
 
   return (
@@ -49,20 +51,13 @@ const CreateExercise = () => {
       <form onSubmit={onSubmit}>
         <div className='form-group'>
           <label className='p-2'>Username: </label>
-          <select
+          <input
+            type='text'
             required
             className='form-control mt-3 mb-3'
             value={username}
             onChange={(e) => onChangeUsername(e)}
-          >
-            {users.map((user) => {
-              return (
-                <option key={user} value={user}>
-                  {user}
-                </option>
-              );
-            })}
-          </select>
+          ></input>
         </div>
         <div className='form-group'>
           <label className='p-2'>Description: </label>
