@@ -1,0 +1,10 @@
+.link {
+  text-decoration: none;
+  color: black;
+  background: none;
+  border: none;
+}
+
+.link:hover {
+  color: blue;
+}
