@@ -58,25 +58,27 @@ const ExercisesList = () => {
     <div>
       <h3>Logged Exercises</h3>
       <table className='table'>
-        <thead className='thead-light'>
-          <tr>
-            <th className='text-center'>
-              <AssignmentInd />
-            </th>
-            <th className='text-center'>
-              <Description />
-            </th>
-            <th className='text-center'>
-              <Timelapse />
-            </th>
-            <th className='text-center'>
-              <CalendarMonth />
-            </th>
-            <th className='text-center'>
-              <PendingActions />
-            </th>
-          </tr>
-        </thead>
+        {exercises.length > 0 && (
+          <thead className='thead-light'>
+            <tr>
+              <th className='text-center'>
+                <AssignmentInd />
+              </th>
+              <th className='text-center'>
+                <Description />
+              </th>
+              <th className='text-center'>
+                <Timelapse />
+              </th>
+              <th className='text-center'>
+                <CalendarMonth />
+              </th>
+              <th className='text-center'>
+                <PendingActions />
+              </th>
+            </tr>
+          </thead>
+        )}
         <tbody>
           {exercises.map((currentExercise) => (
             <Exercise
