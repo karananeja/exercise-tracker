@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './axios';
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -36,8 +36,9 @@ const CreateExercise = () => {
     };
 
     axios
-      .post('http://localhost:5000/exercises/add', exercise)
-      .then((res) => console.log(res.data));
+      .post('/exercises/add', exercise)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
 
     setUsername('');
     setDescription('');

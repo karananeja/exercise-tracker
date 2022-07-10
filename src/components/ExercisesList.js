@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import axios from './axios';
 import {
   AssignmentInd,
   CalendarMonth,
@@ -39,17 +39,22 @@ const Exercise = ({ exercise, deleteExercise }) => {
 const ExercisesList = () => {
   const [exercises, setExercises] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:5000/exercises/')
+  const getExercises = async () => {
+    await axios
+      .get('/exercises')
       .then((res) => setExercises(res.data))
       .catch((error) => console.log(error));
+  };
+
+  useEffect(() => {
+    getExercises();
   }, []);
 
   const deleteExercise = (id) => {
     axios
-      .delete('http://localhost:5000/exercises/' + id)
-      .then((res) => console.log(res.data));
+      .delete('/exercises/' + id)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
 
     setExercises(exercises.filter((el) => el._id !== id));
   };

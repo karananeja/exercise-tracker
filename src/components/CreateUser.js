@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from './axios';
 
 const CreateUser = () => {
   const [username, setUsername] = useState('');
@@ -16,8 +16,9 @@ const CreateUser = () => {
     };
 
     axios
-      .post('http://localhost:5000/users/add', user)
-      .then((res) => console.log(res.data));
+      .post('/users/add', user)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
 
     setUsername('');
   };

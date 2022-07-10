@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from './axios';
 import { useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -11,9 +11,9 @@ const EditExercise = () => {
   const [date, setDate] = useState(new Date());
   const { id } = useParams();
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:5000/exercises/' + id)
+  const editExercise = async () => {
+    await axios
+      .get('/exercises/' + id)
       .then((res) => {
         setUsername(res.data.username);
         setDescription(res.data.description);
@@ -21,6 +21,10 @@ const EditExercise = () => {
         setDate(new Date(res.data.date));
       })
       .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    editExercise();
   }, []);
 
   const onChangeUsername = (e) => {
@@ -50,8 +54,9 @@ const EditExercise = () => {
     };
 
     axios
-      .post('http://localhost:5000/exercises/update/' + id, exercise)
-      .then((res) => console.log(res.data));
+      .post('/exercises/update/' + id, exercise)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
 
     window.location = '/';
   };
