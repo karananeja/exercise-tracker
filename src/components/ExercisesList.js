@@ -46,6 +46,8 @@ const ExercisesList = () => {
       .catch((error) => console.log(error));
   };
 
+  exercises.sort((b, a) => new Date(a.updatedAt) - new Date(b.updatedAt));
+
   useEffect(() => {
     getExercises();
   }, []);
