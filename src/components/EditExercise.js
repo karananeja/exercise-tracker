@@ -43,7 +43,7 @@ const EditExercise = () => {
     setDate(date);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const exercise = {
@@ -53,7 +53,7 @@ const EditExercise = () => {
       date: date,
     };
 
-    axios
+    await axios
       .post('/exercises/update/' + id, exercise)
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
